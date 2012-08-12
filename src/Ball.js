@@ -10,6 +10,36 @@
 	
 	var p = Ball.prototype ;
 
+	var handleMouseOver = function (){
+		document.body.style.cursor='pointer';
+	}
+	var handleMouseDown = function(e){
+		var dx = e.target.x - e.stageX ;
+		var dy = -1;
+		
+		var strength = 0;
+		var dir = 0;
+		if(dx<0){
+			dir = -1;
+			dx = dx*-1;
+		}else{
+			dir = 1;
+		}
+		//console.log(dx);
+		if( 0 < dx && dx<12){
+			strength = 10;
+		}else if( 12 < dx && dx < 24){
+			strength = 20;
+		}else{
+			strength = 30
+		}
+		
+		this.body.ApplyImpulse(new b2Vec2(strength*dir, dy*50), this.body.GetWorldCenter());
+	}
+	var handleMouseOut = function(){
+		document.body.style.cursor='default';
+	}
+	
 	
 	
 
@@ -31,7 +61,7 @@
 		fixDef.shape = new b2CircleShape(38*CONST.pixelToMeter);
 		
 		var bodyDef = new b2BodyDef();
-			bodyDef.type = b2Body.b2_dynamicBody;
+		bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.position.x = bmp.x*CONST.pixelToMeter; 
 		bodyDef.position.y = bmp.y*CONST.pixelToMeter;
 	
@@ -39,7 +69,11 @@
 		this.body.CreateFixture(fixDef);
 		this.skin.body = this.body;
 		
-		
+		/*Event handler*/
+		this.skin.onMouseOver = handleMouseOver;
+		this.skin.onMouseOut = handleMouseOut;
+		this.skin.onPress = handleMouseDown;
+		//console.log(this.skin);
 	}
 	
 	p.update = function(){

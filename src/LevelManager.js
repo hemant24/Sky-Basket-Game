@@ -58,17 +58,11 @@ P.nextLevel=function(){
 			
 			var ball2 = new Ball(90,20,stage,b2dworld);
 			
-			ball2.skin.onMouseOver  = ball.skin.onMouseOver = function(){
-				document.body.style.cursor='pointer';
-			};
-			
-			ball2.skin.onMouseOut = ball.skin.onMouseOut = function(e) {
-				document.body.style.cursor='default';
-			} 
+			/*
 
 			ball2.skin.onClick = ball.skin.onClick=function(){
 				this.body.ApplyImpulse(new b2Vec2(2*CONST.meterToPixel, - 3*CONST.meterToPixel), this.body.GetWorldCenter());
-			};
+			};*/ 
 			levelObjects.push(ball);
 			levelObjects.push(ball2);
 			return levelObjects;
