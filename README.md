@@ -1,4 +1,7 @@
 Sky-Basket-Game
 ===============
 
-sky basket is html5 game using box2d and easeljs as primary library
+Sky basket is made using box2dweb and easeljs as base library on top of HTML5 canvas.
+
+UNDER DEVELOPMENT
+=================
