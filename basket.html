@@ -1,0 +1,60 @@
+<html>
+<head>
+	<!-- Import EaselJS Framework -->
+	<script src="./src/easeljs/utils/UID.js"></script>
+	<script src="./src/easeljs/geom/Matrix2D.js"></script>
+	<script src="./src/easeljs/events/MouseEvent.js"></script>
+	<script src="./src/easeljs/utils/SpriteSheetUtils.js"></script>
+	<script src="./src/easeljs/display/SpriteSheet.js"></script>
+	<script src="./src/easeljs/display/Shadow.js"></script>
+	<script src="./src/easeljs/display/DisplayObject.js"></script>
+	<script src="./src/easeljs/display/Container.js"></script>
+	<script src="./src/easeljs/display/Stage.js"></script>
+	<script src="./src/easeljs/display/Bitmap.js"></script>
+	<script src="./src/easeljs/display/BitmapAnimation.js"></script>
+	<script src="./src/easeljs/display/Text.js"></script>
+	<script src="./src/easeljs/utils/Ticker.js"></script>
+	<script src="./src/easeljs/geom/Rectangle.js"></script>
+	<script src="./src/easeljs/geom/Point.js"></script>
+	<!-- End EaselJS Imports -->
+	<!-- Import Box2d Framework -->
+	<script src="./src/box2d/Box2dWeb-2.1.a.3.js"></script>
+	<script src="./src/jquery/jquery-1.7.1.min.js"></script>
+	
+	<!-- End Box2d Framework -->
+	
+	<script src="http://code.createjs.com/preloadjs-0.1.0.min.js"></script>
+	
+	<script src="./src/Box2DClasses.js"></script>
+	<script src="./src/Ball.js"></script>
+	<script src="./src/World.js"></script>
+	<script src="./src/LevelManager.js"></script>
+	<script src="./src/SkyBasketGame.js"></script>
+</head>
+<title>JATT </title>
+<script>
+
+
+
+
+$(document).ready(function(){
+	var game = new SkyBasketGame();
+	game.startGame();
+	$("#debugswitch").click(function(){
+		$("#debugCanvas").toggle();
+	});
+
+});
+
+</script>
+
+<body>
+	<input type="checkbox" id="debugswitch">debug
+	<div class="canvasHolder" style="position:relative;margin:auto;width:800">
+	    <canvas id="canvas" width="800" height="516" style="position:absolute; left:0px; border: 1px solid black"></canvas>
+		<canvas id="debugCanvas" width="800" height="516" style="position:absolute; left:0px;  border: 1px solid black; display:none;"></canvas>
+	</div>
+	
+</body>
+
+</html>
