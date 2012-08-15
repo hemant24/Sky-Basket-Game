@@ -25,6 +25,9 @@
 		Public.createWorld = function(){
 			world = new World(debugCanvas,stage);
 		}
+		Public.createMicroGShooter = function(){
+			new MicroGShooter(stage, world.b2dWorld); //initialization will do all the work till now
+		}
 		return Public;
 	}(P));
 	/*end private variables*/
@@ -33,6 +36,7 @@
 		setup.canvas();
 		setup.ticker();
 		setup.createWorld();
+		setup.createMicroGShooter();
 		//setup level
 		
 	}

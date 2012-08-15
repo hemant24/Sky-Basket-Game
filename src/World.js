@@ -7,7 +7,7 @@ var World = function(debugCanvas,easelStage){
 /* private variable */
 
 
-var world;
+
 var times=0;
 var levelManager ;
 var addDebug = function(debugContext) {
@@ -17,28 +17,33 @@ var addDebug = function(debugContext) {
 			debugDraw.SetFillAlpha(0.7);
 			debugDraw.SetLineThickness(1.0);
 			debugDraw.SetFlags(b2DebugDraw.e_shapeBit | b2DebugDraw.e_jointBit);
-			world.SetDebugDraw(debugDraw);
+			P.b2dWorld.SetDebugDraw(debugDraw);
 		}
+
 /* end private variable */
 		
 var P = World.prototype;
 var levelObjects = [];
+
+P.b2dWorld ;
+
 P.initialize = function(debugCanvas,easelStage){
-	world = new b2World(new b2Vec2(0,CONST.gravity), true);
+	P.b2dWorld = new b2World(new b2Vec2(0,CONST.gravity), false); //TODO : turn it on man!!!
 	addDebug(debugCanvas);
-	levelManager = new LevelManager(world,easelStage);
+	levelManager = new LevelManager(P.b2dWorld ,easelStage);
 	levelObjects = levelManager.nextLevel();
-	console.log('world created ' + world);
+	P.b2dWorld.SetContactListener(new ContactCallBack());
+
 }
 
 P.update = function(){
 	//console.log('update called :'+times++);
-	world.Step(CONST.timestep, 10, 10);
-	//world.ClearForces();
-	//world.m_debugDraw.m_sprite.graphics.clear();
-	world.DrawDebugData();
-	
+	P.b2dWorld.Step(CONST.timestep, 10, 10);
+	P.b2dWorld.ClearForces();
+	P.b2dWorld.m_debugDraw.m_sprite.graphics.clear();
+	P.b2dWorld.DrawDebugData();
 	for( var a in levelObjects){
+		if(levelObjects[a].update)
 		levelObjects[a].update();
 	}
 }

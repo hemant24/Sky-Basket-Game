@@ -1,6 +1,7 @@
 (function(window){
 
 	var radius = 38;
+	var name = "Ball";
 		
 	function Ball(x, y , stage , world){
 		this.skin=null;
@@ -12,6 +13,7 @@
 
 	var handleMouseOver = function (){
 		document.body.style.cursor='pointer';
+		//document.body.style.cursor='url(../assets/cur.png)';
 	}
 	var handleMouseDown = function(e){
 		var dx = e.target.x - e.stageX ;
@@ -34,15 +36,17 @@
 			strength = 30
 		}
 		
-		this.body.ApplyImpulse(new b2Vec2(strength*dir, dy*50), this.body.GetWorldCenter());
+		this.body.ApplyImpulse(new b2Vec2(strength*dir, dy*150), this.body.GetWorldCenter());
 	}
 	var handleMouseOut = function(){
 		document.body.style.cursor='default';
 	}
 	
-	
-	
-
+	var setUserData= function(body){
+		body.SetUserData({
+			name : name
+		})
+	}
 	
 	p.initialize = function(x,y ,stage, world){
 		var bmp = new Bitmap('./assets/blackBall.png');
@@ -61,6 +65,7 @@
 		fixDef.shape = new b2CircleShape(38*CONST.pixelToMeter);
 		
 		var bodyDef = new b2BodyDef();
+		
 		bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.position.x = bmp.x*CONST.pixelToMeter; 
 		bodyDef.position.y = bmp.y*CONST.pixelToMeter;
@@ -68,7 +73,7 @@
 		this.body = world.CreateBody(bodyDef);
 		this.body.CreateFixture(fixDef);
 		this.skin.body = this.body;
-		
+		setUserData(this.body);
 		/*Event handler*/
 		this.skin.onMouseOver = handleMouseOver;
 		this.skin.onMouseOut = handleMouseOut;

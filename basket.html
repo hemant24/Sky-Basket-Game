@@ -30,14 +30,26 @@
 	<script src="./src/World.js"></script>
 	<script src="./src/LevelManager.js"></script>
 	<script src="./src/SkyBasketGame.js"></script>
+	<script src="./src/MicroGShooter.js"></script>
+	<script src="./src/ContactCallBack.js"></script>
+	<script src="./src/Test.js"></script>
 </head>
 <title>JATT </title>
+<style>
+
+	.canvasHolder{cursor: url(../assets/cur.png),crosshair}
+	.canvasHolder{cursor: none}
+</style>
 <script>
 
 
 
-
 $(document).ready(function(){
+
+$(".canvasHolder").click(function(){
+	//$(this).css('cursor','pointer')
+});
+
 	var game = new SkyBasketGame();
 	game.startGame();
 	$("#debugswitch").click(function(){

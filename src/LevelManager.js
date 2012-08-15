@@ -30,6 +30,9 @@ P.nextLevel=function(){
 			floorBodyDef.position.y = 509 *CONST.pixelToMeter;
 			var floor = b2dworld.CreateBody(floorBodyDef);
 			floor.CreateFixture(floorFixture);
+			floor.SetUserData({
+				name : "Floor"
+			})
 			
 			// boundaries - left
 			var leftFixture = new b2FixtureDef;
@@ -41,6 +44,9 @@ P.nextLevel=function(){
 			leftBodyDef.position.y = -25 *CONST.pixelToMeter;
 			var left = b2dworld.CreateBody(leftBodyDef);
 			left.CreateFixture(leftFixture);
+			left.SetUserData({
+				name : "Left"
+			})
 			// boundaries - right
 			var rightFixture = new b2FixtureDef;
 			rightFixture.shape = new b2PolygonShape;
@@ -51,20 +57,24 @@ P.nextLevel=function(){
 			rightBodyDef.position.y = -25 *CONST.pixelToMeter;
 			var right = b2dworld.CreateBody(rightBodyDef);
 			right.CreateFixture(rightFixture);
+			right.SetUserData({
+				name : "Right"
+			})
 			
 			var ball = new Ball(100,0,stage,b2dworld);
 			
 			
 			
-			var ball2 = new Ball(90,20,stage,b2dworld);
+			//var ball2 = new Ball(90,20,stage,b2dworld);
 			
 			/*
 
 			ball2.skin.onClick = ball.skin.onClick=function(){
 				this.body.ApplyImpulse(new b2Vec2(2*CONST.meterToPixel, - 3*CONST.meterToPixel), this.body.GetWorldCenter());
 			};*/ 
+			var test = new Test(stage,b2dworld);
 			levelObjects.push(ball);
-			levelObjects.push(ball2);
+			levelObjects.push(test);
 			return levelObjects;
 			
 }
