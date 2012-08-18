@@ -1,31 +1,21 @@
 (function(window){
 
-	var radius = 50;
+	/*private variables */
+	
+	var skinRadius = 50;
+	var radius = 38; //sensor radius
 	var name = "Shooter";
+	var arrowHeight = 12.5;
+	var arrowIndex = 1;
+	var circleAlpha = 0.7;
+	var arrowAlpha ; //not using currently
 	
-	function MicroGShooter(stage , world){
-		this.skin=null;
-		this.body =null;
-		this.initialize(stage,world);
-	}
-	
-	var p = MicroGShooter.prototype ;
-
-
-	var handleMouseDown = function(e){
-		//console.log('MicroG Mouse Down');
-	}
-	var handleMouseUp = function(){
-		//console.log('MicroG Mouse Up');
-	}
-	
-		
 	var setUserData= function(body){
 		body.SetUserData({
 			name : name
 		})
 	}
-	
+		
 	var getAngle = function (x,y){
 		var angle = Math.atan2(-x,y)* (180/Math.PI);
 		var offset = 270;
@@ -35,42 +25,46 @@
 		return (angle+offset)%360;
 	}
 
+	/*end private variables */
+	function MicroGShooter(stage , world){
+		this.skin=null;
+		this.body =null;
+		this.initialize(stage,world);
+	}
+	
+	var p = MicroGShooter.prototype ;
 	
 	p.initialize = function(stage, world){
-	    var body = new Container();
-		var ballSkin = new Bitmap('./assets/shooter.png');
-		ballSkin.name = "ball"
+	    var shooterSkin = new Container();
+		var cirlceSkin = new Bitmap('./assets/shooter.png');
+		cirlceSkin.name = "ball"
 		var arrowSkin  = new Bitmap('./assets/arrow.png');
 		arrowSkin.name = "arrow"
 		arrowSkin.rotation = 0;
-		ballSkin.regX = radius;
-		ballSkin.regY = radius;
-		ballSkin.x =0;
-		ballSkin.y = 0;
-		ballSkin.alpha=0.7;
-		this.skin = body;
+		arrowSkin.scaleX =0;
+		arrowSkin.regY = arrowHeight;
+		cirlceSkin.regX = skinRadius;
+		cirlceSkin.regY = skinRadius;
+		cirlceSkin.x =0;
+		cirlceSkin.y = 0;
+		cirlceSkin.alpha=circleAlpha;
 		
-		body.addChild(ballSkin);
-		body.addChild(arrowSkin);
 		
-			
-		stage.addChild(body);
+		shooterSkin.addChild(cirlceSkin);
+		shooterSkin.addChild(arrowSkin); //Hemant it need to be there at index 1 okay..
+		arrowIndex = 1;
+		
+		this.skin = shooterSkin;
+		stage.addChild(shooterSkin);
 		
 		var fixDef = new b2FixtureDef();
-		//fixDef.density = 1.0;
 		fixDef.friction = 0;
 		fixDef.restitution = 0;
 		fixDef.isSensor = true;
-		fixDef.shape = new b2CircleShape(38*CONST.pixelToMeter);
+		fixDef.shape = new b2CircleShape(radius*CONST.pixelToMeter);
 		
 		var bodyDef = new b2BodyDef();
-		//bodyDef.type = b2Body.b2_dynamicBody;
 		bodyDef.type = b2Body.b2_kineticBody;
-		/* will get from mouse mouse event 
-		bodyDef.position.x = bmp.x*CONST.pixelToMeter; 
-		bodyDef.position.y = bmp.y*CONST.pixelToMeter;
-		*/
-		
 		this.body = world.CreateBody(bodyDef);
 		this.body.CreateFixture(fixDef);
 		setUserData(this.body);
@@ -80,7 +74,6 @@
 								return function(e){
 									var move = false;
 									var rotate = false;
-									
 									if(shooter.body.GetUserData().ball){
 										if(shooter.body.GetUserData().ball.lock){
 											rotate=true;
@@ -101,28 +94,14 @@
 									}
 									if(rotate){
 										var lockEvent = shooter.body.GetUserData().ball.lockEvent ;
-										//console.log(e);
 										var x = e.stageX - lockEvent.stageX  ;
 										var y =  e.stageY - lockEvent.stageY ;
-										console.log('x: '+x);
-										console.log('y: '+y);
-									
-										console.log(getAngle(x,y));
-										var angle = getAngle(x,y)
-										//console.log( 'angle is '  + angle)
-										var arrowSkin = null;
-										for(var part in shooter.skin.children){
-											if(part.name="arrow"){
-												
-											}
-										}
-										shooter.skin.children[1].rotation=getAngle(x,y);
-										//console.log( Math.atan2(e.stageX,e.stageY) * (180/Math.PI));
-										shooter.body.GetUserData().ball['force'] = new b2Vec2(-x*3 , -y*3)
-										//console.log('rotating .. ' +(a-b));
-										
+										var angle = getAngle(x,y);
+										var length = Math.sqrt( Math.pow(x,2) + Math.pow(y,2))
+										shooter.skin.children[arrowIndex].scaleX = length/100;
+										shooter.skin.children[arrowIndex].rotation=getAngle(x,y);
+										shooter.body.GetUserData().ball['force'] = new b2Vec2(-x*3 , -y*3);
 									}
-										//console.log(shooter);
 								}
 							}(this);
 							
@@ -131,10 +110,9 @@
 									if(shooter.body.GetUserData().ball){
 										if(shooter.body.GetUserData().ball.lock){
 											var b = shooter.body.GetUserData().ball;
+											shooter.skin.children[arrowIndex].scaleX = 0;
 											b.ApplyImpulse(shooter.body.GetUserData().ball['force'], b.GetWorldCenter());
-											shooter.body.GetUserData().ball['lock']=false
-											//shooter.body.GetUserData().ball=null;
-											
+											shooter.body.GetUserData().ball['lock']=false;
 										}else{
 										//	shooter.body.GetUserData().ball['lock']=true I think not required
 										}
@@ -151,17 +129,15 @@
 									}
 								}
 							}(this); 
-		//console.log(this.skin);
 	}
-	
 	p.update = function(){
-
 		if(this.body.GetUserData().ball){
 			var b = this.body.GetUserData().ball;
-			//console.log('h'+b.GetLinearVelocity().y);
-			//b.ApplyForce(new b2Vec2(0 , -150),b.GetWorldCenter());
 			this.body.GetUserData().ball["oldVelocity"]  = b.GetLinearVelocity();
 			b.SetLinearVelocity(new b2Vec2( (1/2)*b.GetLinearVelocity().x,(1/2)*b.GetLinearVelocity().y));
+		}else{
+			if(this.skin.children[arrowIndex].scaleX!=0)
+				this.skin.children[arrowIndex].scaleX = this.skin.children[arrowIndex].scaleX/10;
 		}
 	}
 

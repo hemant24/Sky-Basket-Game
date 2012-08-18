@@ -37,8 +37,8 @@
 <title>JATT </title>
 <style>
 
-	.canvasHolder{cursor: url(../assets/cur.png),crosshair}
-	.canvasHolder{cursor: none}
+	#canvasHolder{cursor: url(../assets/cur.png),crosshair}
+	#canvasHolder{cursor: none}
 </style>
 <script>
 
@@ -53,7 +53,28 @@ $(".canvasHolder").mousemove(function(){
 	//$(this).css('cursor','pointer')
 //	$(this).css('cursor','none')
 });
+var width = $(window).width();//1000; 
+var height = $(window).height();//500; 
+var canvas = document.createElement("canvas");
+var debugCanvas = document.createElement("canvas");
+canvas.id ="canvas"
+debugCanvas.id = "debugCanvas"
+debugCanvas.width  = canvas.width  = width;
+debugCanvas.height = canvas.height = height;
+debugCanvas.style.position = canvas.style.position = 'absolute';
+debugCanvas.style.left=canvas.style.left='0px';
+debugCanvas.style.border=canvas.style.border='1px solid black';
+debugCanvas.style.display='none';
+//document.body.style.overflow = 'hidden';
+document.getElementById("canvasHolder").style.width =  width;
+document.getElementById("canvasHolder").appendChild(canvas)
+document.getElementById("canvasHolder").appendChild(debugCanvas)
 
+$(window).keydown(function(e){
+	if(e.keyCode == 68){
+		$("#debugCanvas").toggle();
+	}
+});
 
 	var game = new SkyBasketGame();
 	game.startGame();
@@ -66,10 +87,10 @@ $(".canvasHolder").mousemove(function(){
 </script>
 
 <body>
-	<input type="checkbox" id="debugswitch">debug
-	<div class="canvasHolder" style="position:relative;margin:auto;width:800">
-	    <canvas id="canvas" width="800" height="516" style="position:absolute; left:0px; border: 1px solid black"></canvas>
-		<canvas id="debugCanvas" width="800" height="516" style="position:absolute; left:0px;  border: 1px solid black; display:none;"></canvas>
+	  <!--<input type="checkbox" id="debugswitch">debug-->
+	<div id="canvasHolder" style="position:relative;margin:auto;">
+	    <!--<canvas id="canvas" width="1000" height="516" style="position:absolute; left:0px; border: 1px solid black"></canvas>-->
+		   <!--<canvas id="debugCanvas" width="1000" height="516" style="position:absolute; left:0px;  border: 1px solid black; display:none;"></canvas>-->
 	</div>
 	
 </body>

@@ -34,6 +34,7 @@
 	
 	P.startGame = function(){
 		setup.canvas();
+		console.log(canvas);
 		setup.ticker();
 		setup.createWorld();
 		//setup.createMicroGShooter();
