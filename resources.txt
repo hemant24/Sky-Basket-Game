@@ -1,0 +1,18 @@
+cursor thing
+
+http://stackoverflow.com/questions/4773312/custom-cursor-not-working-correctly-in-chrome
+
+http://stackoverflow.com/questions/9987326/custom-cursor-image-with-javascript
+
+http://stackoverflow.com/questions/7140531/how-to-make-a-scalable-custom-cursor-for-html5-canvas-drawing
+
+
+
+box2dweb
+
+http://www.actionscript.org/resources/articles/1087/1/Getting-Started-with-Box2D/Page1.html
+
+
+require this to implement mouse lock
+
+https://developer.mozilla.org/en-US/docs/API/Pointer_Lock_API?redirectlocale=en-US&redirectslug=API%2FMouse_Lock_API

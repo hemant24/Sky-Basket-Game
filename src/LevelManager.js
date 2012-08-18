@@ -63,7 +63,7 @@ P.nextLevel=function(){
 			
 			var ball = new Ball(100,0,stage,b2dworld);
 			
-			
+			var shooter = new MicroGShooter(stage,b2dworld);
 			
 			//var ball2 = new Ball(90,20,stage,b2dworld);
 			
@@ -72,9 +72,10 @@ P.nextLevel=function(){
 			ball2.skin.onClick = ball.skin.onClick=function(){
 				this.body.ApplyImpulse(new b2Vec2(2*CONST.meterToPixel, - 3*CONST.meterToPixel), this.body.GetWorldCenter());
 			};*/ 
-			var test = new Test(stage,b2dworld);
+		//	var test = new Test(stage,b2dworld);
 			levelObjects.push(ball);
-			levelObjects.push(test);
+		//	levelObjects.push(test);
+			levelObjects.push(shooter);
 			return levelObjects;
 			
 }

@@ -36,7 +36,7 @@
 		setup.canvas();
 		setup.ticker();
 		setup.createWorld();
-		setup.createMicroGShooter();
+		//setup.createMicroGShooter();
 		//setup level
 		
 	}

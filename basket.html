@@ -23,7 +23,7 @@
 	
 	<!-- End Box2d Framework -->
 	
-	<script src="http://code.createjs.com/preloadjs-0.1.0.min.js"></script>
+	<!--<script src="http://code.createjs.com/preloadjs-0.1.0.min.js"></script>-->
 	
 	<script src="./src/Box2DClasses.js"></script>
 	<script src="./src/Ball.js"></script>
@@ -49,6 +49,11 @@ $(document).ready(function(){
 $(".canvasHolder").click(function(){
 	//$(this).css('cursor','pointer')
 });
+$(".canvasHolder").mousemove(function(){
+	//$(this).css('cursor','pointer')
+//	$(this).css('cursor','none')
+});
+
 
 	var game = new SkyBasketGame();
 	game.startGame();

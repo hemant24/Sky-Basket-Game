@@ -36,7 +36,7 @@
 			strength = 30
 		}
 		
-		this.body.ApplyImpulse(new b2Vec2(strength*dir, dy*150), this.body.GetWorldCenter());
+		//this.body.ApplyImpulse(new b2Vec2(strength*dir, dy*150), this.body.GetWorldCenter());
 	}
 	var handleMouseOut = function(){
 		document.body.style.cursor='default';
@@ -61,7 +61,7 @@
 		var fixDef = new b2FixtureDef();
 		fixDef.density = 1.0;
 		fixDef.friction = 0.5;
-		fixDef.restitution = 0.5;
+		fixDef.restitution = 0.8;
 		fixDef.shape = new b2CircleShape(38*CONST.pixelToMeter);
 		
 		var bodyDef = new b2BodyDef();

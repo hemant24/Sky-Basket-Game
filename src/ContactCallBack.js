@@ -9,26 +9,48 @@ P.BeginContact = function(contact){
 
 	var onebody = contact.GetFixtureA().GetBody().GetUserData().name;
 	var otherBody = contact.GetFixtureB().GetBody().GetUserData().name;
-	console.log('onebody : '+onebody +' otherbody : ' + otherBody);
+	var ball = null;
+	var shooter = null;
 	if( (onebody == "Shooter" && otherBody=="Ball") || (otherBody =="Shooter" && onebody=="Ball") ){
-		console.log('contact begin');
 		if(onebody =="Ball"){
-			//contact.GetFixtureA().GetBody().ApplyImpulse(new b2Vec2(150,-150), contact.GetFixtureA().GetBody().GetWorldCenter());
+			ball = contact.GetFixtureA().GetBody();
+			shooter = contact.GetFixtureB().GetBody();
 		}else{
-			//contact.GetFixtureB().GetBody().ApplyImpulse(new b2Vec2(150,-150), contact.GetFixtureB().GetBody().GetWorldCenter());
+			ball = contact.GetFixtureB().GetBody();
+			shooter = contact.GetFixtureA().GetBody();
 		}
+		
+		shooter.GetUserData()['ball']=ball;
 	}
+	
+
+	
 
 }
 
 P.EndContact	= function(contact){
+	
 
 	var onebody = contact.GetFixtureA().GetBody().GetUserData().name;
 	var otherBody = contact.GetFixtureB().GetBody().GetUserData().name;
-	if( (onebody == "Shooter" && otherBody=="Ball") || (otherBody =="Ball" && onebody=="Shooter") ){
-		console.log('contact end');
-	}					
-				}
+	var ball = null;
+	var shooter = null;
+	if( (onebody == "Shooter" && otherBody=="Ball") || (otherBody =="Shooter" && onebody=="Ball") ){
+		if(onebody =="Ball"){
+			ball = contact.GetFixtureA().GetBody();
+			shooter = contact.GetFixtureB().GetBody();
+		}else{
+			ball = contact.GetFixtureB().GetBody();
+			shooter = contact.GetFixtureA().GetBody();
+		}
+		if(shooter.GetUserData().ball){
+			shooter.GetUserData().ball.SetLinearVelocity(shooter.GetUserData().ball['oldVelocity']);
+			shooter.GetUserData().ball['lock']=false
+			shooter.GetUserData()['ball']=null;
+		}
+	}
+
+		}
 P.PostSolve		= function(contact){
 
 				}
