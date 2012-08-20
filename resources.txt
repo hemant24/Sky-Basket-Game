@@ -16,3 +16,6 @@ http://www.actionscript.org/resources/articles/1087/1/Getting-Started-with-Box2D
 require this to implement mouse lock
 
 https://developer.mozilla.org/en-US/docs/API/Pointer_Lock_API?redirectlocale=en-US&redirectslug=API%2FMouse_Lock_API
+
+games
+http://html5games.com

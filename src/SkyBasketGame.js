@@ -2,7 +2,7 @@
 	var SkyBasketGame = function(){};
 	/*public variables will attached to P */
 	var P = SkyBasketGame.prototype;
-	
+	var camera ; 
 	
 	/*private variables*/
 	var canvas,debugCanvas,debugCanvas,stage,world,
@@ -33,10 +33,16 @@
 	/*end private variables*/
 	
 	P.startGame = function(){
+		
 		setup.canvas();
-		console.log(canvas);
-		setup.ticker();
+	//	console.log(canvas);
+		
 		setup.createWorld();
+		setup.ticker();
+		//camera = new Camera(stage.canvas.getContext('2d'))
+		//var matrix = new Matrix2D(1,0,0,1,2,2);
+		//console.log(matrix);
+	//	stage._matrix = matrix;
 		//setup.createMicroGShooter();
 		//setup level
 		
@@ -45,8 +51,10 @@
 	P.tick = function(){
 		//console.log(canvas);
 		//get input
+		//camera.begin();
 		world.update();
 		stage.update();
+	//	camera.end();
 		
 	}
 	

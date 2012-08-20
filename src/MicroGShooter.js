@@ -48,8 +48,8 @@
 		cirlceSkin.x =0;
 		cirlceSkin.y = 0;
 		cirlceSkin.alpha=circleAlpha;
-		
-		
+		shooterSkin.x=110
+		shooterSkin.y = 110;
 		shooterSkin.addChild(cirlceSkin);
 		shooterSkin.addChild(arrowSkin); //Hemant it need to be there at index 1 okay..
 		arrowIndex = 1;
@@ -65,6 +65,8 @@
 		
 		var bodyDef = new b2BodyDef();
 		bodyDef.type = b2Body.b2_kineticBody;
+		bodyDef.position.x = shooterSkin.x*CONST.pixelToMeter; 
+		bodyDef.position.y = shooterSkin.y*CONST.pixelToMeter;
 		this.body = world.CreateBody(bodyDef);
 		this.body.CreateFixture(fixDef);
 		setUserData(this.body);
